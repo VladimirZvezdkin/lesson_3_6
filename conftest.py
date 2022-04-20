@@ -1,13 +1,13 @@
 import pytest
-import time
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 
+# add option for language
 def pytest_addoption(parser):
     parser.addoption('--language', action='store', default=None,
                      help="Choose language.")
 
-
+# fixture for browser start\stop
 @pytest.fixture(scope="function")
 def browser(request):
     browser_lang = request.config.getoption("language")
@@ -17,7 +17,5 @@ def browser(request):
     browser = webdriver.Chrome(options=options)
     print("\nstart browser for test")
     yield browser
-    time.sleep(10)
     print("\nquit browser..")
-
     browser.quit()
